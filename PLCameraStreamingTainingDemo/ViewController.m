@@ -11,6 +11,10 @@
 
 #define kStreamCloudURL @"http://pili-demo.qiniu.com/api/stream"
 
+@interface ViewController() <PLCameraStreamingSessionDelegate>
+@property (nonatomic, strong) PLCameraStreamingSession *session;
+@end
+
 @implementation ViewController
 
 - (void)viewDidLoad {
@@ -18,6 +22,48 @@
     
     NSDictionary *streamJSON = [self _createStreamObjectFromServer];
     NSLog(@"Stream Json %@", streamJSON);
+    
+    PLStream *stream = [PLStream streamWithJSON:streamJSON];
+    
+    // 授权后执行
+    void (^permissionBlock)(void) = ^{
+        PLVideoStreamingConfiguration *videoConfiguration = [PLVideoStreamingConfiguration defaultConfiguration];
+        PLAudioStreamingConfiguration *audioConfiguration = [PLAudioStreamingConfiguration defaultConfiguration];
+        
+        self.session = [[PLCameraStreamingSession alloc] initWithVideoConfiguration:videoConfiguration
+                                                                 audioConfiguration:audioConfiguration
+                                                                             stream:stream
+                                                                   videoOrientation:AVCaptureVideoOrientationPortrait];
+        self.session.delegate = self;
+        self.session.previewView = self.view;
+        
+        NSLog(@"start...");
+        
+        [self.session startWithCompleted:^(BOOL success) {
+            // 这里的代码在主线程运行，所以可以放心对 UI 控件做操作
+            if (success) {
+                NSLog(@"success!!");
+            } else {
+                NSLog(@"fail!!");
+            }
+        }];
+    };
+    
+    // 处理未授权情况
+    void (^noPermissionBlock)(void) = ^{  };
+    
+    PLAuthorizationStatus status = [PLCameraStreamingSession cameraAuthorizationStatus];
+    
+    if (PLAuthorizationStatusNotDetermined == status) {
+        [PLCameraStreamingSession requestCameraAccessWithCompletionHandler:^(BOOL granted) {
+            // 回调确保在主线程，可以安全对 UI 做操作
+            granted ? permissionBlock() : noPermissionBlock();
+        }];
+    } else if (PLAuthorizationStatusAuthorized == status) {
+        permissionBlock();
+    } else {
+        noPermissionBlock();
+    }
 }
 
 - (NSDictionary *)_createStreamObjectFromServer
