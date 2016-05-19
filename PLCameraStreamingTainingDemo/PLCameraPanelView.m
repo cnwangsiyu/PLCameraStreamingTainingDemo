@@ -27,6 +27,8 @@
         _captureSwitch = switches[0];
         _capturePositionSwitch = switches[1];
         
+        [_captureSwitch setOn:YES];
+        
         _cameraContainerView = ({
             UIView *container = [[UIView alloc] init];
             container.backgroundColor = [UIColor blackColor];
@@ -62,7 +64,6 @@
     UILabel *label = [[UILabel alloc] init];
     [self addSubview:switchBar];
     [self addSubview:label];
-    [switchBar setOn:YES];
     [label setText:title];
     [switchBar mas_makeConstraints:^(MASConstraintMaker *make) {
         if (previousLabel) {

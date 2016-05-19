@@ -20,6 +20,7 @@
 @implementation ViewController
 {
     BOOL _isSessionReadToRun;
+    AVCaptureVideoOrientation _lastCaptureVideoOrientation;
 }
 
 - (void)dealloc
@@ -166,6 +167,10 @@
                                                  name:UIApplicationWillTerminateNotification
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_onDeviceOrientationChanged)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
 }
 
 - (void)_onEnterBackground
@@ -182,6 +187,42 @@
 - (void)_onWillTerminate
 {
     [self.session destroy];
+}
+
+- (void)_onDeviceOrientationChanged
+{
+    
+    AVCaptureVideoOrientation captureVideoOrientation;
+    switch ([UIDevice currentDevice].orientation) {
+        case UIDeviceOrientationPortrait:
+            captureVideoOrientation = AVCaptureVideoOrientationPortrait;
+            break;
+            
+        case UIDeviceOrientationPortraitUpsideDown:
+            captureVideoOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
+            break;
+            
+        case UIDeviceOrientationLandscapeLeft:
+            captureVideoOrientation = AVCaptureVideoOrientationLandscapeRight;
+            break;
+            
+        case UIDeviceOrientationLandscapeRight:
+            captureVideoOrientation = AVCaptureVideoOrientationLandscapeLeft;
+            break;
+            
+        default:
+            captureVideoOrientation = AVCaptureVideoOrientationPortrait;
+            break;
+    }
+    [self.session setVideoOrientation:captureVideoOrientation];
+    
+//    PLVideoStreamingConfiguration *videoConfiguration = [PLVideoStreamingConfiguration defaultConfiguration];
+//    
+//    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+//        videoConfiguration.videoSize = CGSizeMake(videoConfiguration.videoSize.height,
+//                                                  videoConfiguration.videoSize.width);
+//    }
+//    [self.session reloadVideoConfiguration:videoConfiguration];
 }
 
 @end
