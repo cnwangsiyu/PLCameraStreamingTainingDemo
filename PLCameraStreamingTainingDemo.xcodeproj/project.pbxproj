@@ -11,8 +11,6 @@
 		D2D32DFB1CEC731A000E216D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D32DFA1CEC731A000E216D /* main.m */; };
 		D2D32DFE1CEC731A000E216D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D32DFD1CEC731A000E216D /* AppDelegate.m */; };
 		D2D32E011CEC731A000E216D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D32E001CEC731A000E216D /* ViewController.m */; };
-		D2D32E041CEC731A000E216D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2D32E021CEC731A000E216D /* Main.storyboard */; };
-		D2D32E071CEC731A000E216D /* PLCameraStreamingTainingDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D2D32E051CEC731A000E216D /* PLCameraStreamingTainingDemo.xcdatamodeld */; };
 		D2D32E091CEC731A000E216D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2D32E081CEC731A000E216D /* Assets.xcassets */; };
 		D2D32E0C1CEC731A000E216D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2D32E0A1CEC731A000E216D /* LaunchScreen.storyboard */; };
 		D2D32E171CEC731A000E216D /* PLCameraStreamingTainingDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D32E161CEC731A000E216D /* PLCameraStreamingTainingDemoTests.m */; };
@@ -47,8 +45,6 @@
 		D2D32DFD1CEC731A000E216D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D2D32DFF1CEC731A000E216D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		D2D32E001CEC731A000E216D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		D2D32E031CEC731A000E216D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D2D32E061CEC731A000E216D /* PLCameraStreamingTainingDemo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PLCameraStreamingTainingDemo.xcdatamodel; sourceTree = "<group>"; };
 		D2D32E081CEC731A000E216D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D2D32E0B1CEC731A000E216D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D2D32E0D1CEC731A000E216D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -126,11 +122,9 @@
 				D2D32DFD1CEC731A000E216D /* AppDelegate.m */,
 				D2D32DFF1CEC731A000E216D /* ViewController.h */,
 				D2D32E001CEC731A000E216D /* ViewController.m */,
-				D2D32E021CEC731A000E216D /* Main.storyboard */,
 				D2D32E081CEC731A000E216D /* Assets.xcassets */,
 				D2D32E0A1CEC731A000E216D /* LaunchScreen.storyboard */,
 				D2D32E0D1CEC731A000E216D /* Info.plist */,
-				D2D32E051CEC731A000E216D /* PLCameraStreamingTainingDemo.xcdatamodeld */,
 				D2D8FAE21CED615E00CC598F /* PLCameraPanelView.h */,
 				D2D8FAE31CED615E00CC598F /* PLCameraPanelView.m */,
 			);
@@ -284,7 +278,6 @@
 			files = (
 				D2D32E0C1CEC731A000E216D /* LaunchScreen.storyboard in Resources */,
 				D2D32E091CEC731A000E216D /* Assets.xcassets in Resources */,
-				D2D32E041CEC731A000E216D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,7 +354,6 @@
 				D2D32DFE1CEC731A000E216D /* AppDelegate.m in Sources */,
 				D2D8FAE41CED615E00CC598F /* PLCameraPanelView.m in Sources */,
 				D2D32DFB1CEC731A000E216D /* main.m in Sources */,
-				D2D32E071CEC731A000E216D /* PLCameraStreamingTainingDemo.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,14 +389,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		D2D32E021CEC731A000E216D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D2D32E031CEC731A000E216D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		D2D32E0A1CEC731A000E216D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -608,19 +592,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		D2D32E051CEC731A000E216D /* PLCameraStreamingTainingDemo.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				D2D32E061CEC731A000E216D /* PLCameraStreamingTainingDemo.xcdatamodel */,
-			);
-			currentVersion = D2D32E061CEC731A000E216D /* PLCameraStreamingTainingDemo.xcdatamodel */;
-			path = PLCameraStreamingTainingDemo.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = D2D32DEE1CEC731A000E216D /* Project object */;
 }
