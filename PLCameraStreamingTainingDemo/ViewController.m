@@ -34,6 +34,9 @@
         PLCameraPanelView *cameraPanelView = [[PLCameraPanelView alloc] init];
         [cameraPanelView.captureSwitch addTarget:self action:@selector(_onChangedCaptureSwitch:)
                                 forControlEvents:UIControlEventValueChanged];
+        [cameraPanelView.capturePositionSwitch addTarget:self
+                                                  action:@selector(_onChangedCapturePositionSwitch:)
+                                forControlEvents:UIControlEventValueChanged];
         cameraPanelView;
     });
 }
@@ -92,6 +95,15 @@
         [self.session startCaptureSession];
     } else {
         [self.session stopCaptureSession];
+    }
+}
+
+- (void)_onChangedCapturePositionSwitch:(UISwitch *)switchBar
+{
+    if (switchBar.on) {
+        self.session.captureDevicePosition = PLCaptureDevicePositionFront;
+    } else {
+        self.session.captureDevicePosition = PLCaptureDevicePositionBack;
     }
 }
 

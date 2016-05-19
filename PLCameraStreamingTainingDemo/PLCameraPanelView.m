@@ -21,9 +21,11 @@
         
         self.backgroundColor = [UIColor whiteColor];
         
-        NSArray *switches = [self _generateSwitchesWithTitles:@[@"摄像头开关"]];
+        NSArray *switches = [self _generateSwitchesWithTitles:@[@"摄像头开关",
+                                                                @"前置摄像头"]];
         
         _captureSwitch = switches[0];
+        _capturePositionSwitch = switches[1];
         
         _cameraContainerView = ({
             UIView *container = [[UIView alloc] init];
@@ -42,18 +44,19 @@
 
 - (NSArray *)_generateSwitchesWithTitles:(NSArray *)titles
 {
-    UISwitch *previousSwitch = nil;
+    UILabel *previousLabel = nil;
     NSMutableArray *switches = [[NSMutableArray alloc] initWithCapacity:titles.count];
     
     for (NSString *title in titles) {
-        UISwitch *switchBar = [self _generateSwitchWithTitle:title previousSwitch:previousSwitch];
-        previousSwitch = switchBar;
+        NSArray *result = [self _generateSwitchWithTitle:title previousTitle:previousLabel];
+        UISwitch *switchBar  = result[0];
+        previousLabel = result[1];
         [switches addObject:switchBar];
     }
     return switches;
 }
 
-- (UISwitch *)_generateSwitchWithTitle:(NSString *)title previousSwitch:(UISwitch *)previousSwitch
+- (NSArray *)_generateSwitchWithTitle:(NSString *)title previousTitle:(UILabel *)previousLabel
 {
     UISwitch *switchBar = [[UISwitch alloc] init];
     UILabel *label = [[UILabel alloc] init];
@@ -62,8 +65,8 @@
     [switchBar setOn:YES];
     [label setText:title];
     [switchBar mas_makeConstraints:^(MASConstraintMaker *make) {
-        if (previousSwitch) {
-            make.left.equalTo(previousSwitch.mas_right).with.offset(5);
+        if (previousLabel) {
+            make.left.equalTo(previousLabel.mas_right).with.offset(5);
         } else {
             make.left.equalTo(self).with.offset(10);
         }
@@ -73,7 +76,7 @@
         make.left.equalTo(switchBar.mas_right);
         make.bottom.equalTo(switchBar.mas_bottom);
     }];
-    return switchBar;
+    return @[switchBar, label];
 }
 
 - (void)layoutSubviews

@@ -14,6 +14,7 @@
 
 @property (nonatomic, readonly) UIView *cameraContainerView;
 @property (nonatomic, readonly) UISwitch *captureSwitch;
+@property (nonatomic, readonly) UISwitch *capturePositionSwitch;
 @property (nonatomic, weak) PLCameraStreamingSession *cameraStreamingSession;
 
 @end
