@@ -8,8 +8,12 @@
 
 #import "PLCameraPanelView.h"
 #import <Masonry/Masonry.h>
+#import <PLCameraStreamingKit/PLCameraStreamingKit.h>
 
 @implementation PLCameraPanelView
+{
+    __weak PLCameraStreamingSession *_cameraStreamingSession;
+}
 
 - (instancetype)init
 {
@@ -47,6 +51,12 @@
         });
     }
     return self;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    [self.cameraStreamingSession updatePreviewViewSize:self.cameraContainerView.bounds.size];
 }
 
 @end

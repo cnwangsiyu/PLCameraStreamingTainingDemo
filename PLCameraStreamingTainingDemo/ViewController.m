@@ -56,8 +56,8 @@
                                                                  audioConfiguration:audioConfiguration
                                                                              stream:stream
                                                                    videoOrientation:AVCaptureVideoOrientationPortrait];
+        self.cameraPanelView.cameraStreamingSession = self.session;
         self.session.delegate = self;
-        NSLog(@"-> %@", self.cameraPanelView);
         self.session.previewView = self.cameraPanelView.cameraContainerView;
         
         [self _startSession];
