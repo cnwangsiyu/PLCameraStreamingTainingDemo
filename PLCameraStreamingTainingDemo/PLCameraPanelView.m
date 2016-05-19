@@ -26,6 +26,7 @@
             UILabel *label = [[UILabel alloc] init];
             [self addSubview:switchBar];
             [self addSubview:label];
+            [switchBar setOn:YES];
             [label setText:@"摄像头开关"];
             [switchBar mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self).with.offset(10);

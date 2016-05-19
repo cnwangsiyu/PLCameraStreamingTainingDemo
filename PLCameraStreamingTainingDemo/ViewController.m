@@ -29,7 +29,13 @@
 
 - (void)loadView
 {
-    self.view = [[PLCameraPanelView alloc] init];
+    
+    self.view = ({
+        PLCameraPanelView *cameraPanelView = [[PLCameraPanelView alloc] init];
+        [cameraPanelView.captureSwitch addTarget:self action:@selector(_onChangedCaptureSwitch:)
+                                forControlEvents:UIControlEventValueChanged];
+        cameraPanelView;
+    });
 }
 
 - (PLCameraPanelView *)cameraPanelView
@@ -77,6 +83,15 @@
         permissionBlock();
     } else {
         noPermissionBlock();
+    }
+}
+
+- (void)_onChangedCaptureSwitch:(UISwitch *)switchBar
+{
+    if (switchBar.on) {
+        [self.session startCaptureSession];
+    } else {
+        [self.session stopCaptureSession];
     }
 }
 
