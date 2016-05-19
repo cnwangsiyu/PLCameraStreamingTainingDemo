@@ -16,9 +16,20 @@
 @end
 
 @implementation ViewController
+{
+    BOOL _isSessionReadToRun;
+}
+
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self _addNotifications];
     
     NSDictionary *streamJSON = [self _createStreamObjectFromServer];
     NSLog(@"Stream Json %@", streamJSON);
@@ -37,16 +48,7 @@
         self.session.delegate = self;
         self.session.previewView = self.view;
         
-        NSLog(@"start...");
-        
-        [self.session startWithCompleted:^(BOOL success) {
-            // 这里的代码在主线程运行，所以可以放心对 UI 控件做操作
-            if (success) {
-                NSLog(@"success!!");
-            } else {
-                NSLog(@"fail!!");
-            }
-        }];
+        [self _startSession];
     };
     
     // 处理未授权情况
@@ -75,6 +77,7 @@
     NSError* err = nil;
     NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
     
+    
     if (err != nil || response == nil || data == nil) {
         NSLog(@"get play json faild, %@, %@, %@", err, response, data);
         return nil;
@@ -87,6 +90,61 @@
     }
     
     return streamJSON;
+}
+
+- (void)_startSession
+{
+    if (!_isSessionReadToRun) {
+        
+        NSLog(@"start...");
+        _isSessionReadToRun = YES;
+        
+        [self.session startWithCompleted:^(BOOL success) {
+            if (success) {
+                NSLog(@"success!!");
+            } else {
+                NSLog(@"fail!!");
+                _isSessionReadToRun = NO;
+            }
+        }];
+    }
+    
+    
+}
+
+- (void)_addNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_onEnterBackground)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_onBecomeActive)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_onWillTerminate)
+                                                 name:UIApplicationWillTerminateNotification
+                                               object:nil];
+    
+}
+
+- (void)_onEnterBackground
+{
+    [self.session stop];
+    _isSessionReadToRun = NO;
+}
+
+- (void)_onBecomeActive
+{
+    [self _startSession];
+}
+
+- (void)_onWillTerminate
+{
+    [self.session destroy];
 }
 
 @end
