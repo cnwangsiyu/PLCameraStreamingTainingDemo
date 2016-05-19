@@ -122,11 +122,11 @@
 				D2D32DFD1CEC731A000E216D /* AppDelegate.m */,
 				D2D32DFF1CEC731A000E216D /* ViewController.h */,
 				D2D32E001CEC731A000E216D /* ViewController.m */,
-				D2D32E081CEC731A000E216D /* Assets.xcassets */,
-				D2D32E0A1CEC731A000E216D /* LaunchScreen.storyboard */,
-				D2D32E0D1CEC731A000E216D /* Info.plist */,
 				D2D8FAE21CED615E00CC598F /* PLCameraPanelView.h */,
 				D2D8FAE31CED615E00CC598F /* PLCameraPanelView.m */,
+				D2D32E0A1CEC731A000E216D /* LaunchScreen.storyboard */,
+				D2D32E0D1CEC731A000E216D /* Info.plist */,
+				D2D32E081CEC731A000E216D /* Assets.xcassets */,
 			);
 			path = PLCameraStreamingTainingDemo;
 			sourceTree = "<group>";
