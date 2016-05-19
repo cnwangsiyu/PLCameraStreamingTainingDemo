@@ -1,1 +1,2 @@
 pod 'PLCameraStreamingKit'
+pod 'Masonry'

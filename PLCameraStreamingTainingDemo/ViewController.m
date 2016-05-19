@@ -8,10 +8,12 @@
 
 #import "ViewController.h"
 #import <PLCameraStreamingKit/PLCameraStreamingKit.h>
+#import "PLCameraPanelView.h"
 
 #define kStreamCloudURL @"http://pili-demo.qiniu.com/api/stream"
 
 @interface ViewController() <PLCameraStreamingSessionDelegate>
+@property (nonatomic, readonly) PLCameraPanelView *cameraPanelView;
 @property (nonatomic, strong) PLCameraStreamingSession *session;
 @end
 
@@ -20,10 +22,19 @@
     BOOL _isSessionReadToRun;
 }
 
-
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)loadView
+{
+    self.view = [[PLCameraPanelView alloc] init];
+}
+
+- (PLCameraPanelView *)cameraPanelView
+{
+    return (PLCameraPanelView *)self.view;
 }
 
 - (void)viewDidLoad {
@@ -46,7 +57,7 @@
                                                                              stream:stream
                                                                    videoOrientation:AVCaptureVideoOrientationPortrait];
         self.session.delegate = self;
-        self.session.previewView = self.view;
+        self.session.previewView = self.cameraPanelView.cameraContainerView;
         
         [self _startSession];
     };
@@ -108,8 +119,6 @@
             }
         }];
     }
-    
-    
 }
 
 - (void)_addNotifications
